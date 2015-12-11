@@ -34,6 +34,7 @@ type alias Model =
     , field : String
     , uid : Int
     , visibility : String
+    , taskscount : Int
     }
 
 
@@ -60,6 +61,7 @@ emptyModel =
     , visibility = "All"
     , field = ""
     , uid = 0
+    , taskscount = 0
     }
 
 
@@ -79,6 +81,7 @@ type Action
     | Check Int Bool
     | CheckAll Bool
     | ChangeVisibility String
+    | UpdateTasksCount
 
 
 -- How we update our Model on a given Action?
@@ -96,6 +99,9 @@ update action model =
                     then model.tasks
                     else model.tasks ++ [newTask model.field model.uid]
           }
+
+      UpdateTasksCount ->
+          { model | taskscount = List.length model.tasks }
 
       UpdateField str ->
           { model | field = str }
@@ -165,6 +171,7 @@ taskEntry address task =
     header
       [ id "header" ]
       [ h1 [] [ text "*PILE OF IDEAS*" ]
+      
       , input
           [ id "new-todo"
           , placeholder "Go on, add to the pile =)"
@@ -195,7 +202,10 @@ taskList address visibility tasks =
       , style [ ("visibility", cssVisibility) ]
       ]
       [ input
-          [ id "toggle-all"
+       p [] [ text "There are "
+             , value taskscount
+             , text " ideas"]   
+       , [ id "toggle-all"
           , type' "checkbox"
           , name "toggle"
           , checked allCompleted
