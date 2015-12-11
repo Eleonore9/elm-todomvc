@@ -164,10 +164,10 @@ taskEntry : Address Action -> String -> Html
 taskEntry address task =
     header
       [ id "header" ]
-      [ h1 [] [ text "todos" ]
+      [ h1 [] [ text "*PILE OF IDEAS*" ]
       , input
           [ id "new-todo"
-          , placeholder "What needs to be done?"
+          , placeholder "Go on, add to the pile =)"
           , autofocus True
           , value task
           , name "newTodo"
@@ -297,6 +297,10 @@ infoFooter =
       , p []
           [ text "Part of "
           , a [ href "http://todomvc.com" ] [ text "TodoMVC" ]
+          ]
+      , p []
+          [ text "Modified by "
+          , a [ href "https://github.com/Eleonore9/" ] [ text "Eleonore" ]
           ]
       ]
 
